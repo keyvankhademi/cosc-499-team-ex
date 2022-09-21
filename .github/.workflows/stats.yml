@@ -21,6 +21,10 @@ jobs:
           pip install -U --no-cache-dir https://github.com/brandongk-ubco/gitstats/releases/download/v1.1.0/gitstats-1.1.0-py3-none-any.whl
           python .github/generate_report.py
           mkdir output2  # create output dir
+        env:
+          GIT_ACCESS_TOKEN: ${{ secrets.GIT_ACCESS_TOKEN }}
+          GIT_REPO_NAME: keyvankhademi/cosc-499-team-ex
+          GROUP_NAME: "Medical App for patients with non-prescription medications - Group A"
       - uses: docker://rstropek/pandoc-latex:2.9.2
         with:
           args: --standalone --output=output2/stats.pdf .github/stats_results.md
