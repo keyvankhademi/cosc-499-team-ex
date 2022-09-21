@@ -1,0 +1,30 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Generate Git Stats (Experimental)
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  workflow_dispatch:
+    theme:
+        description: 'Pandoc Theme'
+        required: false
+        default: 'tango'
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  convert_via_pandoc:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          pip install -U --no-cache-dir https://github.com/brandongk-ubco/gitstats/releases/download/v1.1.0/gitstats-1.1.0-py3-none-any.whl
+          python .github/generate_report.py
+          mkdir output2  # create output dir
+      - uses: docker://rstropek/pandoc-latex:2.9.2
+        with:
+          args: --standalone --output=output2/stats.pdf .github/stats_results.md
+      - uses: actions/upload-artifact@v2
+        with:
+          name: stats_pdf
+          path: output2/stats.pdf
