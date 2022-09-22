@@ -14,7 +14,6 @@ print("Running with gitstats version: {}".format(gitstats.__version__))
 access_token = os.getenv("GIT_ACCESS_TOKEN")
 repository = os.getenv("GIT_REPO_NAME")
 group_name = os.getenv("GROUP_NAME")
-is_two_week = os.getenv("IS_TWO_WEEK")
 
 excluded_users = []
 
@@ -25,19 +24,22 @@ SATURDAY_DAY_OF_THE_WEEK = 5
 start_day = datetime.datetime(
     current_date.year,
     current_date.month,
-    current_date.year
+    current_date.day
 )
 
 while start_day.weekday() != SATURDAY_DAY_OF_THE_WEEK:
     start_day = start_day - datetime.timedelta(days=1)
 
-if is_two_week is not None:
-    start_day = start_day - datetime.timedelta(days=7) 
-
 start = datetime.datetime(
     start_day.year, start_day.month, start_day.day, 0, 0, 0
 )
-end = current_date
+end = datetime.datetime.now()
+
+if os.getenv("MANUAL_START_DATE"):
+    start = datetime.fromisoformat(os.getenv("MANUAL_START_DATE"))
+
+if os.getenv("MANUAL_END_DATE"):
+    end = datetime.fromisoformat(os.getenv("MANUAL_END_DATE"))
 
 stats = gitstats.report(access_token,
                         group_name,

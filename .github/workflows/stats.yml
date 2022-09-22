@@ -6,21 +6,32 @@ name: Generate Git Stats (Experimental)
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   workflow_dispatch:
-    theme:
-        description: 'Pandoc Theme'
-        required: false
-        default: 'tango'
+    inputs:
+        manual_start_date:
+          description: 'Start Date (optional)'     
+          required: false
+          default: ''
+        manual_end_date:
+          description: 'End Date (optional)'     
+          required: false
+          default: ''
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   convert_via_pandoc:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
       - run: |
           pip install -U --no-cache-dir https://github.com/brandongk-ubco/gitstats/releases/download/v1.1.0/gitstats-1.1.0-py3-none-any.whl
           python .github/generate_report.py
           mkdir output2  # create output dir
+        env:
+          GIT_ACCESS_TOKEN: ${{ secrets.GIT_ACCESS_TOKEN }}
+          GIT_REPO_NAME: keyvankhademi/cosc-499-team-ex
+          GROUP_NAME: "Medical App for patients with non-prescription medications - Group A"
+          MANUAL_START_DATE: ${{ github.event.inputs.manual_start_date }}
+          MANUAL_END_DATE: ${{ github.event.inputs.manual_end_date }}
       - uses: docker://rstropek/pandoc-latex:2.9.2
         with:
           args: --standalone --output=output2/stats.pdf .github/stats_results.md
