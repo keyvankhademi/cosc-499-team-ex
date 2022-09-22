@@ -25,7 +25,7 @@ SATURDAY_DAY_OF_THE_WEEK = 5
 start_day = datetime.datetime(
     current_date.year,
     current_date.month,
-    current_date.year
+    current_date.day
 )
 
 while start_day.weekday() != SATURDAY_DAY_OF_THE_WEEK:
@@ -37,7 +37,7 @@ if is_two_week is not None:
 start = datetime.datetime(
     start_day.year, start_day.month, start_day.day, 0, 0, 0
 )
-end = current_date
+end = datetime.datetime.now()
 
 stats = gitstats.report(access_token,
                         group_name,
