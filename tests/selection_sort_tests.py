@@ -8,7 +8,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 import unittest
 from selection_sort import selection_sort
 
-class TestMergeSort(unittest.TestCase):
+class TestSelectionSort(unittest.TestCase):
 	def test_already_sorted(self):
 		N = 1000
 		arr = list(range(1, N+1))
