@@ -9,6 +9,4 @@ def bubbleSort(arr):
                 swapped = True
                 
         if not swapped:
-            break
-  
-          
+            break  
