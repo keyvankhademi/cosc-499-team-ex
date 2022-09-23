@@ -2,11 +2,11 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
+sys.path.append(os.path.join(os.path.dirname(__file__), "../.."))
 
 # Merge Sort Tests
 import unittest
-from bubble_sort import bubble_sort
+from ..bubble_sort import bubble_sort
 
 class TestSelectionSort(unittest.TestCase):
     def test_already_sorted(self):
