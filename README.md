@@ -7,7 +7,8 @@ We will demonstrate several different sorting algorithms, with each member openi
 Each Algorithm will also have it's own unit tests to ensure correctness.
 
 ## Task List (Replicated on GitHub)
-Keyvan Khademi: Bogo Sort
-Ivan Carvhallo: Merge Sort
-Elias Pinno: Selection Sort
-Quinn Marshall: Bubble Sort
+
+* Keyvan Khademi: Bogo Sort
+* Ivan Carvhallo: Merge Sort
+* Elias Pinno: Selection Sort
+* Quinn Marshall: Bubble Sort
